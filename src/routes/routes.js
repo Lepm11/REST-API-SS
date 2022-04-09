@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 /**Se declaran variables, cosntantes generales para el funcionamiento */
-let data = fs.readFileSync("src/files/DriveAccess1.json");
+let data = fs.readFileSync("src/files/DriveAccess.json");
 const ClientID = JSON.parse(data).web.client_id;
 const ClientSecret = JSON.parse(data).web.client_secret;
 const RedirectUri = JSON.parse(data).web.redirect_uris;
@@ -138,7 +138,7 @@ const getLengthOfObject = (obj) => {
 
 
 /** RUTA PARA ACCEDER A TODOS LOS USUARIOS REGISTRADOS EN LA BASE DE DATOS*/
-router.get("/", (req, res) => {
+router.get("/ObtenerUsuarios", (req, res) => {
   MysqlConnection.query("SELECT * FROM Solicitantes", (err, rows, fields) => {
     if (!err) {
       res.json(rows);
@@ -342,7 +342,7 @@ router.post("/upload", function (req, res) {
  * 
  * 
  */
-router.post("/pruebas", MultipleUpload, function (req, response) {
+router.post("/Registro", MultipleUpload, function (req, response) {
   try {
     let { id, Nombre, ApellidoPaterno, ApellidoMaterno, Egreso, Correo } =
       req.body;
